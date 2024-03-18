@@ -58,9 +58,9 @@ def update_CurrentAngles():
     try:
         while True:
             if(setStaticAngles == False):
-                if((datetime.now() - now).total_seconds() < 3):#时间小于三秒
+                if((datetime.now() - now).total_seconds() < 5):#时间小于三秒
                     print("please place your hand in static pose")
-                elif((datetime.now() - now).total_seconds() > 3):#时间大于三秒，取现在的角度为静止角度
+                elif((datetime.now() - now).total_seconds() > 5):#时间大于三秒，取现在的角度为静止角度
                     setStaticAngles = True
                     for i in range(1,6):
                         staticAngles[i] = CurrentAngles[i - 1]
@@ -169,11 +169,11 @@ def update_CurrentAngles():
                                 current_ema_angles[i] = calculate_ema(raw_angles[i], current_ema_angles[i], alpha)
                             
                             CurrentAngles = current_ema_angles.copy()
-                            cv2.putText(color_image, f"Thumb: {CurrentAngles[0]:.2f}", (int(hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_CMC].x * color_image.shape[1]), int(hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_CMC].y * color_image.shape[0])), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                            cv2.putText(color_image, f"Index: {CurrentAngles[1]:.2f}", (int(hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_MCP].x * color_image.shape[1]), int(hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_MCP].y * color_image.shape[0])), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                            cv2.putText(color_image, f"Middle: {CurrentAngles[2]:.2f}", (int(hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_MCP].x * color_image.shape[1]), int(hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_MCP].y * color_image.shape[0])), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                            cv2.putText(color_image, f"Ring: {CurrentAngles[3]:.2f}", (int(hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_MCP].x * color_image.shape[1]), int(hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_MCP].y * color_image.shape[0])), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-                            cv2.putText(color_image, f"Pinky: {CurrentAngles[4]:.2f}", (int(hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_MCP].x * color_image.shape[1]), int(hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_MCP].y * color_image.shape[0])), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                            #cv2.putText(color_image, f"Thumb: {(-CurrentAngles[0] + staticAngles[1]):.2f}", (int(hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_CMC].x * color_image.shape[1]), int(hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_CMC].y * color_image.shape[0])), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                            cv2.putText(color_image, f"Index: {(-CurrentAngles[1] + staticAngles[2]):.2f}", (int(hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_MCP].x * color_image.shape[1]), int(hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_MCP].y * color_image.shape[0])), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                            #cv2.putText(color_image, f"Middle: {(-CurrentAngles[2] + staticAngles[3]):.2f}", (int(hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_MCP].x * color_image.shape[1]), int(hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_MCP].y * color_image.shape[0])), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                            #cv2.putText(color_image, f"Ring: {(-CurrentAngles[3] + staticAngles[4]):.2f}", (int(hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_MCP].x * color_image.shape[1]), int(hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_MCP].y * color_image.shape[0])), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                            #cv2.putText(color_image, f"Pinky: {(-CurrentAngles[4] + staticAngles[5]):.2f}", (int(hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_MCP].x * color_image.shape[1]), int(hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_MCP].y * color_image.shape[0])), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
             #显示图像
             cv2.imshow('MediaPipe Hands', cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR))
