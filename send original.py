@@ -3,7 +3,7 @@ import time
 import numpy as np
 
 sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)#ipv4,udp
-sock.bind(('10.32.65.164',54377))#UDP服务器端口和IP绑定
+sock.bind(('10.26.196.17',54377))#UDP服务器端口和IP绑定
 print('等待客户端发送请求...')
 buf, addr = sock.recvfrom(40960)#等待matlab发送请求，这样就能获取matlab client的ip和端口号
 print(addr)
