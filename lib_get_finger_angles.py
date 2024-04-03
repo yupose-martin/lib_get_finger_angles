@@ -29,10 +29,10 @@ staticCurve = {
     5: 175   # 小拇指
 }
 
-left_pitch = 0 #手掌的pitch
-left_yaw = 0 #手掌的yaw
-right_pitch = 0 #手掌的pitch
-right_yaw = 0 #手掌的yaw
+left_pitch = 10 #手掌的pitch
+left_yaw = 10 #手掌的yaw
+right_pitch = 10 #手掌的pitch
+right_yaw = 10 #手掌的yaw
 
 errorAngleThreshold = 5
 angleMove = 6 #判断其他手指是否移动的阈值角度
@@ -66,6 +66,13 @@ def calculate_ema(current_value, previous_ema, alpha=0.3):
     :param alpha: 平滑系数,介于0和1之间
     :return: 新的EMA值
     """
+    if math.isnan(current_value):  # 检查previous_ema是否是NaN
+        print("in function calculate_ema, current_value = nan")
+        current_value = previous_ema  # 将previous_ema初始化为current_value
+    if math.isinf(current_value):  # 检查previous_ema是否是NaN
+        print("in function calculate_ema, current_value = inf")
+        current_value = previous_ema  # 将previous_ema初始化为current_value
+
     return alpha * current_value + (1 - alpha) * previous_ema
 
 
@@ -312,25 +319,50 @@ def get_abs_left_hand_pitch()->"float":
     """
     得到左手的pitch
     """
+    if(math.isnan(left_pitch)):
+        print("ERROR! left_pitch is nan")
+        left_pitch = 10
+    if(math.isinf(left_pitch)):
+        print("ERROR! left_pitch is inf")
+        left_pitch = 10
     return left_pitch
 
-def get_abs_left_hand_pitch()->"float":
+def get_abs_right_hand_pitch()->"float":
     """
     得到右手的pitch
     """
+    if(math.isnan(right_pitch)):
+        print("ERROR! right_pitch is nan")
+        right_pitch = 10
+    if(math.isinf(right_pitch)):
+        print("ERROR! right_pitch is inf")
+        right_pitch = 10
     return right_pitch
 
-def get_abs_left_hand_pitch()->"float":
+def get_abs_left_hand_yaw()->"float":
     """
     得到左手的yaw
     """
+    if(math.isnan(left_yaw)):
+        print("ERROR! left_yaw is nan")
+        left_yaw = 10
+    if(math.isinf(left_yaw)):
+        print("ERROR! left_yaw is inf")
+        left_yaw = 10
     return left_yaw
 
 def get_abs_right_hand_yaw()->"float":
     """
     得到右手的yaw
     """
+    if(math.isnan(right_yaw)):
+        print("ERROR! right_yaw is nan")
+        right_yaw = 10
+    if(math.isinf(right_yaw)):
+        print("ERROR! right_yaw is inf")
+        right_yaw = 10
     return right_yaw
+
 def get_abs_finger_angle(finger_num:"int") -> "float":
     """得到指定手指的絕對角度
 
