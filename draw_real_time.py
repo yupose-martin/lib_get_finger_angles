@@ -1,3 +1,4 @@
+"""實時更新畫圖"""
 import matplotlib.pyplot as plt
 import numpy as np
 import time

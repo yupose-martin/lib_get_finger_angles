@@ -1,3 +1,4 @@
+"""demo for how to use lib_get_finger_angles"""
 import lib_get_finger_angles as gfa
 
 def main():

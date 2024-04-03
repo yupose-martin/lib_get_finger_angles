@@ -1,3 +1,4 @@
+//matlab端接收電腦端信息的代碼
 clc
 clear all;
 fes = FES('COM14', 38400, 0);

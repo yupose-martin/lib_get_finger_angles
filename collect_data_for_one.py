@@ -1,3 +1,4 @@
+"""結合collect angle data while performing stimulation"""
 import socket, threading, time
 import numpy as np
 import lib_get_finger_angles as gfa
