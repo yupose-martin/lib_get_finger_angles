@@ -189,15 +189,15 @@ def update_CurrentAngles():
                                                     pinky_mcp_world_landmark.z - wrist_world_landmark.z])
                         points = [None] * 21
                         for id, lm in enumerate(hand_world_landmarks.landmark):
-                            points[id] = [lm.x, lm.y, lm.z]
-                        # #右手 處理角度正負的關鍵點
-                        # index_wrist_direction = np.array([points[5][0]-points[0][0], points[5][1]-points[0][1], points[5][2]-points[0][2]])
-                        # pinky_wrist_direction = np.array([points[9][0]-points[0][0], points[9][1]-points[0][1], points[9][2]-points[0][2]])
-                        # inside_plane_direction = np.cross(index_wrist_direction,pinky_wrist_direction)
-                        # index_direction = np.array([points[6][0]-points[5][0], points[6][1]-points[5][1], points[6][2]-points[5][2]])
-                        # index_base_angle = get_angle(inside_plane_direction,index_direction)
-                        # print(f"right index_base_angle = {index_base_angle}")
-                        
+                            # 打印世界坐标系中的关键点
+                            # if id == 8:
+                            #     distance = math.sqrt(lm.x* lm.x + lm.y * lm.y + lm.z * lm.z)
+                            #     print(f'distance is :{distance} World Landmark #{id}: x: {lm.x}m, y: {lm.y}m, z: {lm.z}m')
+                            for i in range(0,21):
+                                if id == i:
+                                    points[i] = [lm.x, lm.y, lm.z]
+                                    break
+
                         if all(point is not None for point in points):
                                 
                                 Angle_represent[0] = calculate_angle(points[1],points[2],points[3])#thumb拇指
@@ -265,14 +265,14 @@ def update_CurrentAngles():
                                                     pinky_mcp_world_landmark.z - wrist_world_landmark.z])
                         points = [None] * 21
                         for id, lm in enumerate(hand_world_landmarks.landmark):
-                            points[id] = [lm.x, lm.y, lm.z]
-                        # #左手
-                        # index_wrist_direction = np.array([points[5][0]-points[0][0], points[5][1]-points[0][1], points[5][2]-points[0][2]])
-                        # pinky_wrist_direction = np.array([points[9][0]-points[0][0], points[9][1]-points[0][1], points[9][2]-points[0][2]])
-                        # inside_plane_direction = np.cross(index_wrist_direction,pinky_wrist_direction)
-                        # index_direction = np.array([points[6][0]-points[5][0], points[6][1]-points[5][1], points[6][2]-points[5][2]])
-                        # index_base_angle = get_angle(inside_plane_direction,index_direction)
-                        # print(f"left index_base_angle = {index_base_angle}")
+                            # 打印世界坐标系中的关键点
+                            # if id == 8:
+                            #     distance = math.sqrt(lm.x* lm.x + lm.y * lm.y + lm.z * lm.z)
+                            #     print(f'distance is :{distance} World Landmark #{id}: x: {lm.x}m, y: {lm.y}m, z: {lm.z}m')
+                            for i in range(0,21):
+                                if id == i:
+                                    points[i] = [lm.x, lm.y, lm.z]
+                                    break
 
                         if all(point is not None for point in points):
                                 
@@ -393,15 +393,15 @@ def update_CurrentAngles():
                 left_yaw = calculate_ema(current_value=left_yaw_represent,previous_ema=left_yaw,alpha=alpha)
                 right_yaw = calculate_ema(current_value=right_yaw_represent, previous_ema=right_yaw,alpha=alpha)
 
-                # cv2.putText(color_image, f"left_pitch: {left_pitch:1f} left_yaw: {left_yaw}",
-                #             (int(0.05 * color_image.shape[1]),
-                #              int(0.05 * color_image.shape[0])),
-                #             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                cv2.putText(color_image, f"left_pitch: {left_pitch:1f} left_yaw: {left_yaw}",
+                            (int(0.05 * color_image.shape[1]),
+                             int(0.05 * color_image.shape[0])),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
-                # cv2.putText(color_image, f"right_pitch: {-right_pitch:1f} right_yaw: {right_yaw}",
-                #             (int(0.05 * color_image.shape[1]),
-                #              int(0.1 * color_image.shape[0])),
-                #             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                cv2.putText(color_image, f"right_pitch: {-right_pitch:1f} right_yaw: {right_yaw}",
+                            (int(0.05 * color_image.shape[1]),
+                             int(0.1 * color_image.shape[0])),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
                 if holistic_results.pose_landmarks:
                     pose_landmarks = holistic_results.pose_landmarks
                     # cv2.putText(color_image, f"l: {left_length:2f} x:{left_forearm_direction[0]:2f} y:{left_forearm_direction[1]:2f} z:{left_forearm_direction[2]:2f}",
@@ -440,7 +440,6 @@ thread = threading.Thread(target=update_CurrentAngles)
 thread.start()
 
 def get_abs_left_hand_pitch()->"float":
-    global left_pitch,right_pitch,left_yaw,right_yaw
     """
     得到左手的pitch
     """
@@ -453,7 +452,6 @@ def get_abs_left_hand_pitch()->"float":
     return left_pitch
 
 def get_abs_right_hand_pitch()->"float":
-    global left_pitch,right_pitch,left_yaw,right_yaw
     """
     得到右手的pitch
     """
@@ -466,7 +464,6 @@ def get_abs_right_hand_pitch()->"float":
     return -right_pitch
 
 def get_abs_left_hand_yaw()->"float":
-    global left_pitch,right_pitch,left_yaw,right_yaw
     """
     得到左手的yaw
     """
@@ -479,7 +476,6 @@ def get_abs_left_hand_yaw()->"float":
     return left_yaw
 
 def get_abs_right_hand_yaw()->"float":
-    global left_pitch,right_pitch,left_yaw,right_yaw
     """
     得到右手的yaw
     """
@@ -623,8 +619,3 @@ def calculate_angle(point_a, point_b, point_c):
 
     return angle_degrees
 
-def get_angle(direction1:"np.array", direction2:"np.array")->"float":
-    dot_product = np.dot(direction1,direction2)
-    angle = 90 - np.degrees(np.arccos(dot_product 
-                                               / (np.linalg.norm(direction1) * np.linalg.norm(direction2))))
-    return angle

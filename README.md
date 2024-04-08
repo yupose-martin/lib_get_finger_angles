@@ -47,3 +47,9 @@ curve = (angle1 + angle2 + angle3) / 3
 ## todo
 
 1.手指收縮張開角度方向
+
+
+
+## info
+
+* 每個手指關節點相對於wrist的點是在相機坐標系下 u v
