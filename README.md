@@ -15,7 +15,7 @@ https://github.com/yupose-martin/lib_get_finger_angles/assets/114896246/948096c8
 
 2. pitch yaw
 
-https://github.com/yupose-martin/lib_get_finger_angles/assets/114896246/82865bc4-8391-4fb5-9c90-afc329229eeb
+https://github.com/yupose-martin/lib_get_finger_angles/assets/114896246/e5ac45d9-e01f-4156-9aa1-42c13d29136c
 
 ## Functions:
 ### pitch yaw
