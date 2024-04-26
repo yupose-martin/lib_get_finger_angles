@@ -9,6 +9,15 @@
 1. camera: intel realsense
 2. lib needed: mediapipe, pyrealsense2
 
+## Vedios:
+
+1. finger angle
+
+https://github.com/yupose-martin/lib_get_finger_angles/assets/114896246/948096c8-91d1-45d4-87d6-5e00d7cb0f88
+
+2. pitch yaw
+
+
 ## Functions:
 
 ### pitch yaw
